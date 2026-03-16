@@ -23,7 +23,7 @@ foreach(LIB linqu_runtime_lib linqu_ring linqu_core linqu_profiling linqu_discov
     )
 endforeach()
 
-# ---- pypto_serving library ----
+# ---- pypto_serving library (engine + stubs) ----
 file(GLOB_RECURSE SERVING_SRC
     src/l2_stubs/*.cpp
     src/engine/*.cpp
@@ -41,6 +41,14 @@ target_link_libraries(pypto_serving_lib
     dl
 )
 
+# ---- TestPath shared library (for Python ctypes) ----
+add_library(pypto_testpath SHARED src/frontend/test_path.cpp)
+target_link_libraries(pypto_testpath pypto_serving_lib)
+set_target_properties(pypto_testpath PROPERTIES
+    PREFIX ""
+    OUTPUT_NAME "pypto_testpath"
+)
+
 # ---- Tests ----
 enable_testing()
 
@@ -51,3 +59,8 @@ macro(serving_add_test TEST_NAME TEST_SRC)
 endmacro()
 
 serving_add_test(test_phase0_smoke tests/test_phase0_smoke.cpp)
+
+# Phase 1: C++ integration test using TestPath C API
+add_executable(test_phase1_testpath tests/test_phase1_testpath.cpp src/frontend/test_path.cpp)
+target_link_libraries(test_phase1_testpath pypto_serving_lib)
+add_test(NAME test_phase1_testpath COMMAND test_phase1_testpath)
