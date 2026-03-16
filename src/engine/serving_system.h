@@ -4,6 +4,9 @@
 #include "common/request.h"
 #include "engine/inference_engine.h"
 #include "engine/pod_orchestrator.h"
+#include "engine/request_server.h"
+#include "kv/kv_cache_manager.h"
+#include "kv/radix_tree.h"
 #include "l2_stubs/chip_backend_stub.h"
 #include "profiling/trace_writer.h"
 
@@ -42,12 +45,17 @@ public:
 
     Response infer(const Request& request);
 
+    // Phase 3: serve_request with Radix + KV cache integration.
+    ServeResult serve(const Request& request);
+
     // Write trace and return path (empty string if tracing disabled).
     std::string write_trace();
 
     linqu::TraceWriter& trace_writer() { return trace_writer_; }
     ChipBackendStub& prefill_backend() { return prefill_backend_; }
     ChipBackendStub& decode_backend()  { return decode_backend_; }
+    RadixTree& radix_tree() { return radix_; }
+    KVCacheManager& kv_cache() { return kv_mgr_; }
 
 private:
     ServingConfig cfg_;
@@ -57,6 +65,9 @@ private:
     InferenceEngine prefill_engine_;
     InferenceEngine decode_engine_;
     PodOrchestrator pod_;
+    RadixTree radix_;
+    KVCacheManager kv_mgr_;
+    RequestServer req_server_;
 };
 
 }  // namespace serving

@@ -13,7 +13,8 @@ ServingSystem::ServingSystem(const ServingConfig& cfg)
       decode_backend_(cfg.num_chips_per_server),
       prefill_engine_(cfg.num_chips_per_server, &prefill_backend_),
       decode_engine_(cfg.num_chips_per_server, &decode_backend_),
-      pod_(&prefill_engine_, &decode_engine_) {
+      pod_(&prefill_engine_, &decode_engine_),
+      req_server_(&radix_, &kv_mgr_) {
 
     if (cfg_.enable_trace) {
         trace_writer_.set_enabled(true);
@@ -55,6 +56,12 @@ Response ServingSystem::infer(const Request& request) {
         trace_pid);
 
     return response_future.get();
+}
+
+ServeResult ServingSystem::serve(const Request& request) {
+    int32_t trace_pid = cfg_.enable_trace ? 40000 : -1;
+    return req_server_.serve_request(
+        pod_, prefill_engine_, decode_engine_, request, trace_pid);
 }
 
 std::string ServingSystem::write_trace() {

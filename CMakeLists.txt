@@ -68,3 +68,6 @@ add_test(NAME test_phase1_testpath COMMAND test_phase1_testpath)
 
 # Phase 2: Radix Tree & KV Cache unit tests
 serving_add_test(test_phase2_radix_kv tests/test_phase2_radix_kv.cpp)
+
+# Phase 3: Serve request integration tests
+serving_add_test(test_phase3_serve tests/test_phase3_serve.cpp)
