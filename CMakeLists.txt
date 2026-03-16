@@ -28,6 +28,7 @@ file(GLOB_RECURSE SERVING_SRC
     src/l2_stubs/*.cpp
     src/engine/*.cpp
     src/kv/*.cpp
+    src/distributed/*.cpp
 )
 
 add_library(pypto_serving_lib STATIC ${SERVING_SRC})
@@ -74,3 +75,6 @@ serving_add_test(test_phase3_serve tests/test_phase3_serve.cpp)
 
 # Phase 4: ChipBackend adapter tests
 serving_add_test(test_phase4_adapter tests/test_phase4_adapter.cpp)
+
+# Phase 7: Distributed inference tests
+serving_add_test(test_phase7_distributed tests/test_phase7_distributed.cpp)
