@@ -78,3 +78,6 @@ serving_add_test(test_phase4_adapter tests/test_phase4_adapter.cpp)
 
 # Phase 7: Distributed inference tests
 serving_add_test(test_phase7_distributed tests/test_phase7_distributed.cpp)
+
+# Phase 8: Persistence & stress tests
+serving_add_test(test_phase8_persistence tests/test_phase8_persistence.cpp)
