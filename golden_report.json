@@ -1,0 +1,61 @@
+[
+  {
+    "name": "basic_8tok",
+    "passed": true,
+    "output": [
+      15,
+      31,
+      15,
+      31,
+      15
+    ],
+    "details": []
+  },
+  {
+    "name": "short_2tok",
+    "passed": true,
+    "output": [
+      15,
+      31,
+      15
+    ],
+    "details": []
+  },
+  {
+    "name": "single_token",
+    "passed": true,
+    "output": [
+      15,
+      31
+    ],
+    "details": []
+  },
+  {
+    "name": "determinism",
+    "passed": true,
+    "output": [
+      15,
+      31,
+      15,
+      31,
+      15
+    ],
+    "details": []
+  },
+  {
+    "name": "longer_decode",
+    "passed": true,
+    "output": [
+      15,
+      31,
+      15,
+      31,
+      15,
+      31,
+      15,
+      31,
+      15
+    ],
+    "details": []
+  }
+]
