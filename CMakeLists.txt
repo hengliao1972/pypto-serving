@@ -71,3 +71,6 @@ serving_add_test(test_phase2_radix_kv tests/test_phase2_radix_kv.cpp)
 
 # Phase 3: Serve request integration tests
 serving_add_test(test_phase3_serve tests/test_phase3_serve.cpp)
+
+# Phase 4: ChipBackend adapter tests
+serving_add_test(test_phase4_adapter tests/test_phase4_adapter.cpp)
