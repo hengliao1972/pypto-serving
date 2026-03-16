@@ -27,6 +27,7 @@ endforeach()
 file(GLOB_RECURSE SERVING_SRC
     src/l2_stubs/*.cpp
     src/engine/*.cpp
+    src/kv/*.cpp
 )
 
 add_library(pypto_serving_lib STATIC ${SERVING_SRC})
@@ -64,3 +65,6 @@ serving_add_test(test_phase0_smoke tests/test_phase0_smoke.cpp)
 add_executable(test_phase1_testpath tests/test_phase1_testpath.cpp src/frontend/test_path.cpp)
 target_link_libraries(test_phase1_testpath pypto_serving_lib)
 add_test(NAME test_phase1_testpath COMMAND test_phase1_testpath)
+
+# Phase 2: Radix Tree & KV Cache unit tests
+serving_add_test(test_phase2_radix_kv tests/test_phase2_radix_kv.cpp)
